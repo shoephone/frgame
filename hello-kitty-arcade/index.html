@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Farrah Rose's Hello Kitty Arcade</title>
+
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+:root { 
+  --accent: #ff6fa3;
+  --logo-top-gap: 10px;    
+  --text-gap: 20px;        
+  --buttons-gap: 30px;     
+}
+
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.menu {
+  width: 100%;
+  max-width: 900px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Logo wrapper */
+.logo-wrapper {
+  position: relative;
+  top: var(--logo-top-gap);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1);
+  z-index: 2;
+}
+
+/* Logo images */
+.logo-img {
+  max-height: 30vh;
+  display: block;
+}
+
+/* Lead text */
+.lead {
+  margin-top: var(--text-gap);
+  color: var(--accent);
+  font-size: clamp(1rem, 4vw, 3rem);
+  min-height: 1.5em;
+}
+
+/* Buttons */
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  margin-top: var(--buttons-gap);
+}
+.choices button {
+  background: #111;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  padding: 16px 32px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(0.8rem, 3vw, 1.2rem);
+  cursor: pointer;
+  border-radius: 8px;
+}
+.choices button:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+/* Back button */
+button.back {
+  position: fixed;
+  left: 14px;
+  top: 70px;
+  padding: 10px 14px;
+  border: none;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  display: none;
+  font-family: 'Press Start 2P', cursive;
+  z-index: 1000;
+}
+
+/* Safe-area iframe */
+iframe.player {
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: env(safe-area-inset-left, 0px);
+  width: calc(100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+  height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  border: 0;
+  display: none;
+  background: #000;
+  z-index: 999;
+}
+</style>
+</head>
+<body>
+<button class="back" id="backBtn">← Back</button>
+
+<div class="menu" id="menu">
+  <div class="logo-wrapper">
+    <img src="images/header.png" class="logo-img" alt="Hello Kitty Arcade">
+  </div>
+
+  <p class="lead">Choose a game:</p>
+
+  <div class="choices">
+    <button id="playPong">PONG</button>
+    <button id="playBandB">BOWS & BOMBS</button>
+    <button id="playTicTacToe">TIC TAC TOE</button>
+    <button id="playNumberGuess">NUMBER GUESSING GAME</button>
+  </div>
+</div>
+
+<iframe id="playerFrame" class="player" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+
+<script>
+const menu = document.getElementById('menu');
+const backBtn = document.getElementById('backBtn');
+const iframe = document.getElementById('playerFrame');
+
+function openGame(path) {
+  menu.style.display = 'none';
+  iframe.style.display = 'block';
+  backBtn.style.display = 'inline-block';
+  iframe.src = path;
+}
+
+// Button listeners
+document.getElementById('playPong').addEventListener('click', () => openGame('pong.html'));
+document.getElementById('playBandB').addEventListener('click', () => openGame('bows-and-bombs.html'));
+document.getElementById('playTicTacToe').addEventListener('click', () => openGame('tictactoe.html'));
+document.getElementById('playNumberGuess').addEventListener('click', () => openGame('number-guess.html'));
+
+// Back button
+backBtn.addEventListener('click', () => {
+  iframe.src = 'about:blank';
+  iframe.style.display = 'none';
+  backBtn.style.display = 'none';
+  menu.style.display = 'flex';
+});
+</script>
+</body>
+</html>
