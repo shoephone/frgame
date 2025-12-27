@@ -51,8 +51,16 @@ body {
 
 /* Logo images */
 .logo-img {
-  max-height: 30vh;
+  max-height: 20vh;
   display: block;
+}
+
+/* Logo video */
+.logo-video {
+  max-height: 20vh;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 
 /* Lead text */
@@ -123,7 +131,7 @@ iframe.player {
   <!-- Logo -->
   <div class="logo-wrapper" id="logoWrapper">
     <video src="images/header.mp4" class="logo-video"  autoplay muted playsinline></video>
-    <img src="images/header.png" class="logo-img" alt="X Arcade">
+    <img src="images/header.png" class="logo-img" alt="X Arcade" style="display: none;">
   </div>
 
   <p class="lead">Choose a game:</p>
@@ -163,7 +171,14 @@ backBtn.addEventListener('click', () => {
   backBtn.style.display = 'none';
   menu.style.display = 'flex';
 });
+
+// Video replacement
+const video = document.querySelector('.logo-video');
+const logoImg = document.querySelector('.logo-img');
+video.addEventListener('ended', () => {
+  video.style.display = 'none';
+  logoImg.style.display = 'block';
+});
 </script>
 </body>
 </html>
-
