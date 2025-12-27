@@ -120,8 +120,10 @@ iframe.player {
 <button class="back" id="backBtn">← Back</button>
 
 <div class="menu" id="menu">
-  <div class="logo-wrapper">
-    <img src="images/header.png" class="logo-img" alt="Hello Kitty Arcade">
+  <!-- Logo -->
+  <div class="logo-wrapper" id="logoWrapper">
+    <video src="images/header.mp4" class="logo-video"  autoplay muted playsinline></video>
+    <img src="images/header.png" class="logo-img" alt="X Arcade">
   </div>
 
   <p class="lead">Choose a game:</p>
@@ -164,3 +166,4 @@ backBtn.addEventListener('click', () => {
 </script>
 </body>
 </html>
+
